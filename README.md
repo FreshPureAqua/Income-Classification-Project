@@ -118,4 +118,5 @@ sparsity and improve interpretability:
 
 ## License
 
-This project uses publicly available UCI data for educational purposes.
+This project is licensed under the [MIT License](LICENSE). The dataset is
+publicly available from the UCI Machine Learning Repository.
