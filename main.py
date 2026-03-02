@@ -1,22 +1,24 @@
-from CategoryMaps import *
+"""Run the full pipeline: clean data -> train logistic regression -> train random forest."""
 
-df = pd.read_csv("adult_income.csv")
-df.fillna("Unknown", inplace=True)
-df.replace("?", "Unknown", inplace=True)
-df.replace("<=50K.", "<=50K", inplace=True)
-df.replace(">50K.", ">50K", inplace=True)
+from src.clean_data import main as clean_main
+from src.train_logreg import main as logreg_main
+from src.train_rf import main as rf_main
 
 
-# Separate the df into groups using pandas for input into f_oneway
-#group1 = df[df['group'] == 'A']['value']
-#group2 = df[df['group'] == 'B']['value']
-#group3 = df[df['group'] == 'C']['value']
+if __name__ == "__main__":
+    print("=" * 50)
+    print("Step 1: Cleaning data")
+    print("=" * 50)
+    clean_main()
 
-df["education"] = df["education"].replace(edu_map)
+    print("\n" + "=" * 50)
+    print("Step 2: Training Logistic Regression")
+    print("=" * 50)
+    logreg_main()
 
-groupHours(df)
-groupAge(df)
-dropColumns(df)
+    print("\n" + "=" * 50)
+    print("Step 3: Training Random Forest")
+    print("=" * 50)
+    rf_main()
 
-df.info()
-print(df["income"].unique())
+    print("\nDone! Check reports/ for metrics and figures.")
